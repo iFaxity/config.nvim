@@ -122,7 +122,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "tree-sitter-manager.nvim": {
-      "rev": "48396293d84a8dd88b857f298ee5953fa3572e5f",
+      "rev": "5fbde4965377d44989fffdbd44566a648fd696ea",
       "src": "https://github.com/romus204/tree-sitter-manager.nvim"
     },
     "ts-comments.nvim": {
