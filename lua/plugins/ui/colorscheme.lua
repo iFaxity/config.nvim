@@ -2,7 +2,9 @@ vim.pack.add({
   { src = "https://github.com/catppuccin/nvim" },
 })
 
-require("catppuccin").setup({
+local catppuccin = require("catppuccin")
+
+catppuccin.setup({
   flavour = "frappe",
   lsp_styles = {
     underlines = {
@@ -13,29 +15,22 @@ require("catppuccin").setup({
     },
   },
   integrations = {
-    aerial = true,
-    alpha = true,
-    cmp = true,
-    dashboard = true,
-    flash = true,
-    fzf = true,
-    grug_far = true,
+    blink_cmp = {
+      style = "bordered",
+    },
+    dap = true,
+    dap_ui = true,
     gitsigns = true,
-    headlines = true,
-    illuminate = true,
-    indent_blankline = { enabled = true },
-    leap = true,
+    lualine = {},
     lsp_trouble = true,
     mason = true,
     mini = true,
-    navic = { enabled = true, custom_bg = "lualine" },
     neotest = true,
-    neotree = true,
     noice = true,
-    notify = true,
-    snacks = true,
-    telescope = true,
-    treesitter_context = true,
+    snacks = {
+      enabled = true,
+      indent_scope_color = "lavender",
+    },
     which_key = true,
   },
 })

@@ -3,65 +3,156 @@ vim.g.maplocalleader = "\\"
 
 local map = vim.keymap.set
 
--- Not sure what these are
-map("i", "jk", "<ESC>")
---keymap.set("n", "<leader>nh", ":nohl<CR>")
-map("n", "<ESC><ESC>", ":nohl<CR>", {
+-- Standard Quality of Life
+map("i", "jk", "<Esc>", {
+  desc = "Exit insert mode",
+})
+map("n", "<Esc><Esc>", "<cmd>nohlsearch<cr>", {
+  desc = "Clear search highlights",
   silent = true,
-  desc = "which_key_ignore",
 })
 
--- Aliases for save
-map({ "n", "i" }, "<C-s>", "<CMD>silent write<CR>")
-map({ "n", "i" }, "ZZ", "<CMD>silent wqa!<CR>")
+-- Better indenting (Keeps selection)
+map("x", "<", "<gv", {
+  desc = "Indent left",
+})
+map("x", ">", ">gv", {
+  desc = "Indent right",
+})
 
--- Aliases for quit
-map("n", "<leader>w", ":w<CR>")
-map("n", "<leader>wq", ":wq<CR>")
-map("n", "<leader>q", ":q<CR>")
-map("n", "<leader>qa", ":qa<CR>")
+-- Files
+map("n", "<leader>fn", "<cmd>enew<cr>", {
+  desc = "New File",
+})
 
--- Window Split Command
-map("n", "<leader>sv", "<C-w>v")
-map("n", "<leader>sh", "<C-w>s")
-map("n", "<leader>se", "<C-w>=")
-map("n", "<leader>sx", "<cmd>close<CR>")
+-- Save & Quit
+map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>write<cr><esc>", {
+  desc = "Save file",
+})
+map("n", "<leader>wq", "<cmd>exit<cr>", {
+  desc = "Save and quit current window",
+})
+map("n", "<leader>q", "<cmd>quit<cr>", {
+  desc = "Quit current window",
+})
+map("n", "<leader>qa", "<cmd>exitall<cr>", {
+  desc = "Save and quit all",
+})
 
--- Tab Navigation
-map("n", "<leader>to", "<cmd>tabnew<CR>")
-map("n", "<leader>tx", "<cmd>tabclose<CR>")
-map("n", "<S-l>", "<cmd>tabn<CR>")
-map("n", "<S-h>", "<cmd>tabp<CR>")
+-- Window Management
+map("n", "<leader>-", "<cmd>split<cr>", {
+  desc = "Split window below",
+})
+map("n", "<leader>|", "<cmd>vsplit<cr>", {
+  desc = "Split window right",
+})
+map("n", "<leader>wd", "<cmd>close<cr>", {
+  desc = "Delete window",
+})
 
-map("n", "<leader>tf", "<cmd>tabnew %<CR>")
+-- Move to window using <ctrl> hjkl
+map("n", "<C-h>", "<C-w>h", {
+  desc = "Go to left window",
+})
+map("n", "<C-j>", "<C-w>j", {
+  desc = "Go to lower window",
+})
+map("n", "<C-k>", "<C-w>k", {
+  desc = "Go to upper window",
+})
+map("n", "<C-l>", "<C-w>l", {
+  desc = "Go to right window",
+})
 
--- Zen mode toggle
-map("n", "<leader>zm", ":ZenMode<CR>")
+-- Resize window using <ctrl> arrow keys
+map("n", "<C-Up>", "<cmd>resize +2<cr>", {
+  desc = "Increase window height",
+})
+map("n", "<C-Down>", "<cmd>resize -2<cr>", {
+  desc = "Decrease window height",
+})
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", {
+  desc = "Decrease window width",
+})
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", {
+  desc = "Increase window width",
+})
 
--- Silicon command
-map("v", "<leader>ss", ":Silicon<CR>")
+-- Tab management
+map("n", "<leader><Tab><Tab>", "<cmd>tabnew<cr>", {
+  desc = "New tab",
+})
+map("n", "<leader><Tab>d", "<cmd>tabclose<cr>", {
+  desc = "Close tab",
+})
+map("n", "<leader><Tab>]", "<cmd>tabnext<cr>", {
+  desc = "Next tab",
+})
+map("n", "<leader><Tab>[", "<cmd>tabprevious<cr>", {
+  desc = "Previous tab",
+})
+map("n", "<leader><Tab>l", "<cmd>tablast<cr>", {
+  desc = "Last Tab",
+})
+map("n", "<leader><Tab>f", "<cmd>tabfirst<cr>", {
+  desc = "First Tab",
+})
+map("n", "<leader><Tab>o", "<cmd>tabonly<cr>", {
+  desc = "Close other tabs",
+})
 
--- Markdown preview toggle
-map("n", "<leader>md", ":MarkdownPreviewToggle<CR>")
+-- Buffer navigation
+map("n", "<S-Tab>", "<cmd>bprevious<cr>", {
+  desc = "Prev Buffer",
+})
+map("n", "<Tab>", "<cmd>bnext<cr>", {
+  desc = "Next Buffer",
+})
 
--- Resize window commands
-map("n", "<C-Up>", ":resize -3<CR>")
-map("n", "<C-Down>", ":resize +3<CR>")
-map("n", "<C-Left>", ":vertical resize -3<CR>")
-map("n", "<C-Right>", ":vertical resize +3<CR>")
+-- Better up/down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", {
+  desc = "Down",
+  expr = true,
+  silent = true,
+})
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", {
+  desc = "Down",
+  expr = true,
+  silent = true,
+})
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", {
+  desc = "Up",
+  expr = true,
+  silent = true,
+})
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", {
+  desc = "Up",
+  expr = true,
+  silent = true,
+})
 
--- Copilot suggestions commands
---map("i", "<C-a>", "copilot#Accept('<CR>')", { expr = true, silent = true, script = true })
---map("i", "<C-r>", "<Plug>(copilot-dismiss)", { silent = true })
---map("n", "<leader>cd", ":Copilot disable<CR>")
-
--- DSA commands
-map("n", "<leader>cr", ":!./run.sh %<CR>")
-
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
-
--- Navigate buffers with TAB
-map("n", "<s-tab>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-map("n", "<tab>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+-- Move Lines
+map("n", "<A-j>", "<cmd>silent! move .+\\v:count1<cr>==", {
+  desc = "Move down",
+  silent = true,
+})
+map("n", "<A-k>", "<cmd>silent! move .-\\v:count1+1<cr>==", {
+  desc = "Move up",
+  silent = true,
+})
+map("i", "<A-j>", "<esc><cmd>silent! move .+1<cr>==gi", {
+  desc = "Move down",
+  silent = true,
+})
+map("i", "<A-k>", "<esc><cmd>silent! move .-2<cr>==gi", {
+  desc = "Move up",
+  silent = true,
+})
+map("v", "<A-j>", ":<C-u>silent! execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", {
+  desc = "Move down",
+  silent = true,
+})
+map("v", "<A-k>", ":<C-u>silent! execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
+  desc = "Move up",
+  silent = true,
+})

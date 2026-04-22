@@ -4,12 +4,18 @@ vim.pack.add({
 
 local todo_comments = require("todo-comments")
 
-vim.keymap.set("n", "]t", function()
+todo_comments.setup()
+
+--
+-- Keymaps
+--
+
+local map = vim.keymap.set
+
+map("n", "]t", function()
   todo_comments.jump_next()
 end, { desc = "Next todo comment" })
 
-vim.keymap.set("n", "[t", function()
+map("n", "[t", function()
   todo_comments.jump_prev()
 end, { desc = "Previous todo comment" })
-
-todo_comments.setup()

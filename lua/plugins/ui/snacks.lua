@@ -2,15 +2,82 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
 })
 
-require("snacks").setup({
-  bigfile = { enabled = true },
-  explorer = { enabled = true },
-  indent = { enabled = true },
-  input = { enabled = true },
-  notifier = { enabled = true },
-  quickfile = { enabled = true },
-  scope = { enabled = true },
-  words = { enabled = true },
+local snacks = require("snacks")
+
+snacks.setup({
+  bigfile = {
+    enabled = true,
+  },
+  explorer = {
+    enabled = true,
+  },
+  indent = {
+    enabled = true,
+  },
+  input = {
+    enabled = true,
+  },
+  quickfile = {
+    enabled = true,
+  },
+  scope = {
+    enabled = true,
+  },
+  words = {
+    enabled = true,
+  },
+  zen = {
+    enabled = true,
+  },
+  terminal = {
+    enabled = true,
+  },
+  notifier = {
+    enabled = true,
+    timeout = 5000,
+  },
+  dim = {
+    enabled = true,
+    scope = {
+      min_size = 10,
+      max_size = 50,
+      siblings = true,
+    },
+  },
+  scroll = {
+    enabled = true,
+    animate = {
+      duration = { step = 10, total = 200 },
+      easing = "linear",
+    },
+    -- faster animation when repeating scroll after delay
+    animate_repeat = {
+      delay = 100, -- delay in ms before using the repeat animation
+      duration = { step = 5, total = 50 },
+      easing = "linear",
+    },
+  },
+  picker = {
+    reverse = false,
+    sources = {
+      files = {
+        hidden = true,
+      },
+      explorer = {
+        hidden = true,
+        git_status = true,
+        layout = {
+          preset = "sidebar",
+          hidden = { "input" },
+          auto_hide = { "input" },
+          layout = {
+            position = "right",
+            width = 50,
+          },
+        },
+      },
+    },
+  },
   dashboard = {
     enabled = true,
     width = 60,
@@ -100,44 +167,16 @@ require("snacks").setup({
       },
     },
   },
-  scroll = {
-    enabled = true,
-    animate = {
-      duration = { step = 10, total = 200 },
-      easing = "linear",
-    },
-    -- faster animation when repeating scroll after delay
-    animate_repeat = {
-      delay = 100, -- delay in ms before using the repeat animation
-      duration = { step = 5, total = 50 },
-      easing = "linear",
-    },
-  },
-  picker = {
-    reverse = false,
-    sources = {
-      files = {
-        hidden = true,
-      },
-      explorer = {
-        hidden = true,
-        git_status = true,
-        layout = {
-          preset = "sidebar",
-          hidden = { "input" },
-          auto_hide = { "input" },
-          layout = {
-            position = "right",
-            width = 50,
-          },
-        },
-      },
-    },
-  },
 })
 
+--
+-- Keymaps
+--
 local map = vim.keymap.set
 
+--
+-- File explorer
+--
 map("n", "<leader>e", function()
   Snacks.explorer()
 end, { desc = "File Explorer (root dir)" })
@@ -146,8 +185,9 @@ map("n", "<leader>E", function()
   Snacks.picker.explorer({ cwd = vim.fn.getcwd() })
 end, { desc = "Explorer (cwd)" })
 
+--
 -- General
-
+--
 map("n", "<leader>,", function()
   Snacks.picker.buffers()
 end, { desc = "Buffers" })
@@ -168,8 +208,52 @@ map("n", "<leader>n", function()
   Snacks.picker.notifications()
 end, { desc = "Notification history" })
 
--- Find
+--
+-- Floating terminal
+--
+map("n", "<leader>fT", function()
+  Snacks.terminal()
+end, { desc = "Terminal (cwd)" })
 
+map("n", "<leader>ft", function()
+  Snacks.terminal(nil, { cwd = vim.fn.getcwd() })
+end, { desc = "Terminal (Root Dir)" })
+
+map({ "n", "t" }, "<c-/>", function()
+  Snacks.terminal.focus(nil, { cwd = vim.fn.getcwd() })
+end, { desc = "Terminal (Root Dir)" })
+
+map({ "n", "t" }, "<c-_>", function()
+  Snacks.terminal.focus(nil, { cwd = vim.fn.getcwd() })
+end, { desc = "which_key_ignore" })
+
+--
+-- Toggles
+--
+Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+Snacks.toggle.diagnostics():map("<leader>ud")
+Snacks.toggle.line_number():map("<leader>ul")
+Snacks.toggle
+  .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" })
+  :map("<leader>uc")
+Snacks.toggle
+  .option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" })
+  :map("<leader>uA")
+Snacks.toggle.treesitter():map("<leader>uT")
+Snacks.toggle.dim():map("<leader>uD")
+Snacks.toggle.animate():map("<leader>ua")
+Snacks.toggle.indent():map("<leader>ug")
+Snacks.toggle.scroll():map("<leader>uS")
+Snacks.toggle.profiler():map("<leader>up")
+Snacks.toggle.profiler_highlights():map("<leader>uP")
+Snacks.toggle.zen():map("<leader>uz")
+Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
+
+--
+-- Find
+--
 map("n", "<leader>fb", function()
   Snacks.picker.buffers()
 end, { desc = "Buffers" })
@@ -187,7 +271,7 @@ map("n", "<leader>ff", function()
 end, { desc = "Find files (root dir)" })
 
 map("n", "<leader>fF", function()
-  Snacks.picker.files("files", { root = false })
+  Snacks.picker.files({ root = false })
 end, { desc = "Find files (cwd)" })
 
 map("n", "<leader>fg", function()
@@ -209,7 +293,6 @@ end, { desc = "Projects" })
 --
 -- Git
 --
-
 map("n", "<leader>gg", function()
   Snacks.lazygit({ cwd = vim.fn.getcwd() })
 end, { desc = "Lazygit (Root Dir)" })
@@ -237,7 +320,6 @@ end, { desc = "Git stash" })
 --
 -- GitHub
 --
-
 map("n", "<leader>gi", function()
   Snacks.picker.gh_issue()
 end, { desc = "GitHub Issues (open)" })
@@ -257,7 +339,6 @@ end, { desc = "GitHub Pull Requests (all)" })
 --
 -- Grep
 --
-
 map("n", "<leader>sb", function()
   Snacks.picker.lines()
 end, { desc = "Buffer Lines" })
@@ -289,7 +370,6 @@ end, { desc = "Visual selection or word (cwd)" })
 --
 -- Search
 --
-
 map("n", '<leader>s"', function()
   Snacks.picker.registers()
 end, { desc = "Registers" })
@@ -363,8 +443,12 @@ map("n", "<leader>su", function()
 end, { desc = "Undotree" })
 
 --
--- UI
+-- TODO
 --
-map("n", "<leader>uC", function()
-  Snacks.picker.colorschemes()
-end, { desc = "Colorschemes" })
+map("n", "<leader>st", function()
+  Snacks.picker.todo_comments()
+end, { desc = "Todo" })
+
+map("n", "<leader>sT", function()
+  Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+end, { desc = "Todo/Fix/Fixme" })
