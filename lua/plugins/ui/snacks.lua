@@ -94,49 +94,61 @@ snacks.setup({
    \ \__\\ \__\ \_______\ \_______\ \__/ /     \ \__\ \__\    \ \__\
     \|__| \|__|\|_______|\|_______|\|__|/       \|__|\|__|     \|__|
 ]],
-    },
-    keys = {
-      {
-        icon = " ",
-        key = "f",
-        desc = "Find File",
-        action = ":lua Snacks.dashboard.pick('files')",
-      },
-      {
-        icon = " ",
-        key = "n",
-        desc = "New File",
-        action = ":ene | startinsert",
-      },
-      {
-        icon = " ",
-        key = "g",
-        desc = "Find Text",
-        action = ":lua Snacks.dashboard.pick('live_grep')",
-      },
-      {
-        icon = " ",
-        key = "r",
-        desc = "Recent Files",
-        action = ":lua Snacks.dashboard.pick('oldfiles')",
-      },
-      {
-        icon = " ",
-        key = "c",
-        desc = "Config",
-        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
-      },
-      {
-        icon = " ",
-        key = "s",
-        desc = "Restore Session",
-        section = "session",
-      },
-      {
-        icon = " ",
-        key = "q",
-        desc = "Quit",
-        action = ":qa",
+      keys = {
+        {
+          icon = " ",
+          key = "f",
+          desc = "Find file",
+          action = ":lua Snacks.dashboard.pick('files')",
+        },
+        {
+          icon = " ",
+          key = "n",
+          desc = "New file",
+          action = ":ene | startinsert",
+        },
+        {
+          icon = " ",
+          key = "g",
+          desc = "Find text",
+          action = ":lua Snacks.dashboard.pick('live_grep')",
+        },
+        {
+          icon = " ",
+          key = "r",
+          desc = "Recent files",
+          action = ":lua Snacks.dashboard.pick('oldfiles')",
+        },
+        {
+          icon = " ",
+          key = "c",
+          desc = "Config",
+          action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+        },
+        {
+          icon = " ",
+          key = "p",
+          desc = "Projects",
+          action = ":lua Snacks.dashboard.pick('projects')",
+        },
+        {
+          icon = " ",
+          key = "s",
+          desc = "Sessions",
+          action = ":AutoSession search",
+        },
+        {
+          icon = " ",
+          key = "S",
+          desc = "Restore session",
+          action = ":AutoSession restore",
+        },
+        {
+          icon = " ",
+          key = "q",
+          desc = "Quit",
+          action = ":qa",
+        },
       },
     },
     sections = {
@@ -175,116 +187,83 @@ snacks.setup({
 local map = vim.keymap.set
 
 --
--- File explorer
+-- General
 --
 map("n", "<leader>e", function()
   Snacks.explorer()
-end, { desc = "File Explorer (root dir)" })
+end, { desc = "Explorer" })
 
-map("n", "<leader>E", function()
-  Snacks.picker.explorer({ cwd = vim.fn.getcwd() })
-end, { desc = "Explorer (cwd)" })
-
---
--- General
---
 map("n", "<leader>,", function()
   Snacks.picker.buffers()
 end, { desc = "Buffers" })
 
 map("n", "<leader>/", function()
   Snacks.picker.grep()
-end, { desc = "Grep (root dir)" })
+end, { desc = "Grep" })
 
-map("n", "<leader>/:", function()
+map("n", "<leader>:", function()
   Snacks.picker.command_history()
 end, { desc = "Command history" })
 
 map("n", "<leader><space>", function()
   Snacks.picker.files()
-end, { desc = "Find Files (root dir)" })
+end, { desc = "Find" })
 
-map("n", "<leader>n", function()
-  Snacks.picker.notifications()
-end, { desc = "Notification history" })
-
---
--- Floating terminal
---
-map("n", "<leader>fT", function()
+map({ "n", "t" }, "<C-/>", function()
   Snacks.terminal()
-end, { desc = "Terminal (cwd)" })
-
-map("n", "<leader>ft", function()
-  Snacks.terminal(nil, { cwd = vim.fn.getcwd() })
-end, { desc = "Terminal (Root Dir)" })
-
-map({ "n", "t" }, "<c-/>", function()
-  Snacks.terminal.focus(nil, { cwd = vim.fn.getcwd() })
-end, { desc = "Terminal (Root Dir)" })
-
-map({ "n", "t" }, "<c-_>", function()
-  Snacks.terminal.focus(nil, { cwd = vim.fn.getcwd() })
-end, { desc = "which_key_ignore" })
+end, { desc = "Terminal" })
 
 --
--- Toggles
+-- Terminal
 --
-Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-Snacks.toggle.diagnostics():map("<leader>ud")
-Snacks.toggle.line_number():map("<leader>ul")
-Snacks.toggle
-  .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" })
-  :map("<leader>uc")
-Snacks.toggle
-  .option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" })
-  :map("<leader>uA")
-Snacks.toggle.treesitter():map("<leader>uT")
-Snacks.toggle.dim():map("<leader>uD")
-Snacks.toggle.animate():map("<leader>ua")
-Snacks.toggle.indent():map("<leader>ug")
-Snacks.toggle.scroll():map("<leader>uS")
-Snacks.toggle.profiler():map("<leader>up")
-Snacks.toggle.profiler_highlights():map("<leader>uP")
-Snacks.toggle.zen():map("<leader>uz")
-Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
+map("n", "<leader>tf", function()
+  Snacks.terminal()
+end, { desc = "Terminal" })
+
+map("n", "<leader>tF", function()
+  Snacks.terminal(nil, {
+    win = {
+      style = "float",
+      border = "rounded",
+      width = 0.8,
+      height = 0.8,
+      title = "󰞷 Terminal",
+      title_pos = "center",
+    },
+  })
+end, { desc = "Terminal (floating)" })
+
+map({ "n", "t" }, "<leader>tb", "<cmd>terminal<cr>", { desc = "Terminal (buffer)" })
 
 --
--- Find
+-- Buffer
 --
-map("n", "<leader>fb", function()
+map("n", "<leader>bf", function()
   Snacks.picker.buffers()
 end, { desc = "Buffers" })
 
-map("n", "<leader>fB", function()
+map("n", "<leader>bF", function()
   Snacks.picker.buffers({ hidden = true, nofile = true })
 end, { desc = "Buffers (all)" })
 
-map("n", "<leader>fc", function()
-  Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
-end, { desc = "Find files (config)" })
-
+--
+-- Files
+--
 map("n", "<leader>ff", function()
   Snacks.picker.files()
-end, { desc = "Find files (root dir)" })
-
-map("n", "<leader>fF", function()
-  Snacks.picker.files({ root = false })
-end, { desc = "Find files (cwd)" })
+end, { desc = "Find" })
 
 map("n", "<leader>fg", function()
-  Snacks.picker.git_files()
-end, { desc = "Find files (git-files)" })
+  Snacks.picker.grep()
+end, { desc = "Grep" })
+
+map("n", "<leader>fc", function()
+  Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+end, { desc = "Find (config)" })
 
 map("n", "<leader>fr", function()
   Snacks.picker.recent()
 end, { desc = "Recent" })
-
-map("n", "<leader>fR", function()
-  Snacks.picker.recent({ filter = { cwd = true } })
-end, { desc = "Recent (cwd)" })
 
 map("n", "<leader>fp", function()
   Snacks.picker.projects()
@@ -294,12 +273,8 @@ end, { desc = "Projects" })
 -- Git
 --
 map("n", "<leader>gg", function()
-  Snacks.lazygit({ cwd = vim.fn.getcwd() })
-end, { desc = "Lazygit (Root Dir)" })
-
-map("n", "<leader>gG", function()
   Snacks.lazygit()
-end, { desc = "Lazygit (cwd)" })
+end, { desc = "Lazygit" })
 
 map("n", "<leader>gd", function()
   Snacks.picker.git_diff()
@@ -317,78 +292,24 @@ map("n", "<leader>gS", function()
   Snacks.picker.git_stash()
 end, { desc = "Git stash" })
 
---
--- GitHub
---
-map("n", "<leader>gi", function()
-  Snacks.picker.gh_issue()
-end, { desc = "GitHub Issues (open)" })
-
-map("n", "<leader>gI", function()
-  Snacks.picker.gh_issue({ state = "all" })
-end, { desc = "GitHub Issues (all)" })
-
-map("n", "<leader>gp", function()
-  Snacks.picker.gh_pr()
-end, { desc = "GitHub Pull Requests (open)" })
-
-map("n", "<leader>gP", function()
-  Snacks.picker.gh_pr({ state = "all" })
-end, { desc = "GitHub Pull Requests (all)" })
-
---
--- Grep
---
-map("n", "<leader>sb", function()
-  Snacks.picker.lines()
-end, { desc = "Buffer Lines" })
-
-map("n", "<leader>sB", function()
-  Snacks.picker.grep_buffers()
-end, { desc = "Grep Open Buffers" })
-
-map("n", "<leader>sg", function()
-  Snacks.picker.grep()
-end, { desc = "Grep (Root Dir)" })
-
-map("n", "<leader>sG", function()
-  Snacks.picker.grep({ root = false })
-end, { desc = "Grep (cwd)" })
-
-map("n", "<leader>sp", function()
-  Snacks.picker.lazy()
-end, { desc = "Search for plugin spec" })
-
-map({ "n", "x" }, "<leader>sw", function()
-  Snacks.picker.grep_word()
-end, { desc = "Visual selection or word (Root Dir)" })
-
-map({ "n", "x" }, "<leader>sW", function()
-  Snacks.picker.grep_word({ root = false })
-end, { desc = "Visual selection or word (cwd)" })
+map("n", "<leader>gf", function()
+  Snacks.picker.git_files()
+end, { desc = "Git files" })
 
 --
 -- Search
 --
-map("n", '<leader>s"', function()
-  Snacks.picker.registers()
-end, { desc = "Registers" })
+map("n", "<leader>ss", function()
+  Snacks.picker({
+    layout = {
+      hidden = { "preview" },
+    },
+  })
+end, { desc = "Snacks" })
 
-map("n", "<leader>s/", function()
-  Snacks.picker.search_history()
-end, { desc = "Search History" })
-
-map("n", "<leader>sa", function()
-  Snacks.picker.autocmds()
-end, { desc = "Autocmds" })
-
-map("n", "<leader>sc", function()
-  Snacks.picker.command_history()
-end, { desc = "Command History" })
-
-map("n", "<leader>sC", function()
-  Snacks.picker.commands()
-end, { desc = "Commands" })
+map({ "n", "x" }, "<leader>sw", function()
+  Snacks.picker.grep_word()
+end, { desc = "Visual selection or word" })
 
 map("n", "<leader>sd", function()
   Snacks.picker.diagnostics()
@@ -396,41 +317,17 @@ end, { desc = "Diagnostics" })
 
 map("n", "<leader>sD", function()
   Snacks.picker.diagnostics_buffer()
-end, { desc = "Buffer Diagnostics" })
+end, { desc = "Diagnostics (buffer)" })
 
 map("n", "<leader>sh", function()
   Snacks.picker.help()
-end, { desc = "Help Pages" })
-
-map("n", "<leader>sH", function()
-  Snacks.picker.highlights()
-end, { desc = "Highlights" })
-
-map("n", "<leader>si", function()
-  Snacks.picker.icons()
-end, { desc = "Icons" })
-
-map("n", "<leader>sj", function()
-  Snacks.picker.jumps()
-end, { desc = "Jumps" })
-
-map("n", "<leader>sk", function()
-  Snacks.picker.keymaps()
-end, { desc = "Keymaps" })
-
-map("n", "<leader>sl", function()
-  Snacks.picker.loclist()
-end, { desc = "Location List" })
-
-map("n", "<leader>sM", function()
-  Snacks.picker.man()
-end, { desc = "Man Pages" })
+end, { desc = "Help pages" })
 
 map("n", "<leader>sm", function()
-  Snacks.picker.marks()
-end, { desc = "Marks" })
+  Snacks.picker.man()
+end, { desc = "Man pages" })
 
-map("n", "<leader>sR", function()
+map("n", "<leader>sr", function()
   Snacks.picker.resume()
 end, { desc = "Resume" })
 
@@ -442,6 +339,10 @@ map("n", "<leader>su", function()
   Snacks.picker.undo()
 end, { desc = "Undotree" })
 
+map("n", "<leader>sn", function()
+  Snacks.picker.notifications()
+end, { desc = "Notification history" })
+
 --
 -- TODO
 --
@@ -450,5 +351,36 @@ map("n", "<leader>st", function()
 end, { desc = "Todo" })
 
 map("n", "<leader>sT", function()
-  Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+  Snacks.picker.todo_comments({
+    keywords = { "TODO", "FIX", "FIXME" },
+  })
 end, { desc = "Todo/Fix/Fixme" })
+
+--
+-- Toggles
+--
+Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+Snacks.toggle.diagnostics():map("<leader>ud")
+Snacks.toggle.line_number():map("<leader>ul")
+Snacks.toggle.treesitter():map("<leader>uT")
+Snacks.toggle.dim():map("<leader>uD")
+Snacks.toggle.indent():map("<leader>ug")
+Snacks.toggle.scroll():map("<leader>uS")
+Snacks.toggle.zen():map("<leader>uz")
+Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
+Snacks.toggle
+  .option("conceallevel", {
+    off = 0,
+    on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
+    name = "Conceal Level",
+  })
+  :map("<leader>uc")
+Snacks.toggle
+  .option("showtabline", {
+    off = 0,
+    on = vim.o.showtabline > 0 and vim.o.showtabline or 2,
+    name = "Tabline",
+  })
+  :map("<leader>uA")

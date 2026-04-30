@@ -26,6 +26,7 @@ mason.setup({
 })
 
 mason_lspconfig.setup({
+  automatic_enable = true,
   ensure_installed = {
     -- HTML LSP
     "html",

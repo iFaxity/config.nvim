@@ -5,8 +5,9 @@ vim.pack.add({
 local catppuccin = require("catppuccin.special.bufferline")
 local palettes = require("catppuccin.palettes")
 local frappe = palettes.get_palette("frappe")
+local bufferline = require("bufferline")
 
-require("bufferline").setup({
+bufferline.setup({
   --  -- stylua: ignore
   --  close_command = function(n) Snacks.bufdelete(n) end,
   --  -- stylua: ignore
@@ -22,4 +23,29 @@ require("bufferline").setup({
       },
     },
   }),
+  options = {
+
+    diagnostics = "nvim_lsp",
+    diagnostics_indicator = function(_, _, diag)
+      if diag.error then
+        return ""
+      end
+
+      if diag.warning then
+        return " "
+      end
+
+      return ""
+    end,
+  },
 })
+
+--
+-- Keymaps
+--
+
+local map = vim.keymap.set
+
+map("n", "<leader>bd", function()
+  Snacks.bufdelete()
+end, { desc = "Delete buffer" })

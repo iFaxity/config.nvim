@@ -7,17 +7,61 @@ local map = vim.keymap.set
 map("i", "jk", "<Esc>", {
   desc = "Exit insert mode",
 })
-map("n", "<Esc><Esc>", "<cmd>nohlsearch<cr>", {
+map("n", "<Esc>", "<cmd>nohlsearch<cr>", {
   desc = "Clear search highlights",
+  silent = true,
+})
+map("t", "<Esc>", "<C-\\><C-n>", {
+  desc = "Exit terminal mode",
+})
+
+-- Show float diagnostics for line
+map("n", "<leader>cd", function()
+  vim.diagnostic.open_float()
+end, { desc = "Line diagnostics" })
+
+-- Jump and stay in the middle of the page
+map("n", "<C-d>", "<C-d>zz", {
+  desc = "Keep cursor in middle in half page jumps",
+  nowait = true,
+})
+map("n", "<C-u>", "<C-u>zz", {
+  desc = "Keep cursor in middle in half page jumps",
+  nowait = true,
+})
+-- map("n", "<S-Down>", "<S-Down>zz<cr>", {
+--   desc = "Keep cursor in middle in page jumps",
+--   nowait = true,
+-- })
+-- map("n", "<S-Up>", "<S-Up>zz<cr>", {
+--   desc = "Keep cursor in middle in page jumps",
+--   nowait = true,
+-- })
+--
+-- Not sure about these....
+map("n", "n", "nzzzv", {
+  desc = "",
+  silent = true,
+})
+map("n", "N", "Nzzzv", {
+  desc = "",
+  silent = true,
+})
+
+-- Greatest remap
+map("x", "<leader>p", '"_dP', {
+  desc = "Paste and keep clipboard",
   silent = true,
 })
 
 -- Better indenting (Keeps selection)
 map("x", "<", "<gv", {
   desc = "Indent left",
+  silent = true,
 })
 map("x", ">", ">gv", {
   desc = "Indent right",
+  silent = true,
 })
 
 -- Files
@@ -61,6 +105,20 @@ map("n", "<C-k>", "<C-w>k", {
   desc = "Go to upper window",
 })
 map("n", "<C-l>", "<C-w>l", {
+  desc = "Go to right window",
+})
+
+-- Move to window from terminal using <ctrl> hjkl
+map("t", "<C-h>", [[<C-\><C-n><C-w>h]], {
+  desc = "Go to left window",
+})
+map("t", "<C-j>", [[<C-\><C-n><C-w>j]], {
+  desc = "Go to lower window",
+})
+map("t", "<C-k>", [[<C-\><C-n><C-w>k]], {
+  desc = "Go to upper window",
+})
+map("t", "<C-l>", [[<C-\><C-n><C-w>l]], {
   desc = "Go to right window",
 })
 

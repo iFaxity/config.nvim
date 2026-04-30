@@ -55,3 +55,23 @@ tree_sitter_manager.setup({
     "printf",
   },
 })
+
+-- Autocmd for loading treesitter when a filetype is matched
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("TreesitterAutoStart", { clear = true }),
+  callback = function(args)
+    local ft = vim.bo[args.buf].filetype
+
+    -- Try to find the "official" parser name for this filetype
+    -- This handles the internal mapping (like 'javascriptreact' -> 'javascript')
+    local lang = vim.treesitter.language.get_lang(ft) or ft
+
+    -- Check if a parser is installed and functional for that language
+    local has_parser, parser = pcall(vim.treesitter.get_parser, args.buf, lang)
+
+    if has_parser and parser then
+      -- Start the engine
+      vim.treesitter.start(args.buf, lang)
+    end
+  end,
+})

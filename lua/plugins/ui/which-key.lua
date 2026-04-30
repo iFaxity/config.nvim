@@ -7,49 +7,122 @@ local which_key_extras = require("which-key.extras")
 
 which_key.setup({
   preset = "helix",
-  delay = 300,
+  delay = 200,
   icons = {
     --rules = true,
-    breadcrumb = " ",
-    separator = "󱦰  ",
+    --breadcrumb = " ",
+    --separator = "󱦰 ",
     --group = "󰹍 ",
-    group = nil,
+    breadcrumb = "",
+    separator = "",
+    group = "",
   },
   plugins = {
     spelling = {
       enabled = false,
     },
   },
-  win = {
-    height = {
-      max = math.huge,
-    },
-  },
   spec = {
     mode = { "n", "v" },
-    { "[", group = "Prev" },
-    { "]", group = "Next" },
-    { "g", group = "Goto" },
-    { "z", group = "Fold" },
-    { "<leader><TAB>", group = "Tabs" },
-    { "<leader>f", group = "Find" },
-    { "<leader>s", group = "Search" },
-    { "<leader>G", group = "Git" },
-    { "<leader>g", group = "Gitsigns" },
-    { "<leader>R", group = "Replace" },
-    { "<leader>c", group = "Code" },
-    { "<leader>d", group = "Debug" },
-    { "<leader>u", group = "UI" },
+    {
+      "[",
+      group = "Prev",
+      icon = { icon = "󰙣 ", color = "red" },
+    },
+    {
+      "]",
+      group = "Next",
+      icon = { icon = "󰙡 ", color = "green" },
+    },
+    {
+      "g",
+      group = "Goto",
+      icon = { icon = "󰈿 ", color = "cyan" },
+    },
+    {
+      "z",
+      group = "Fold",
+      icon = { icon = "󰘖 ", color = "yellow" },
+    },
+    {
+      "<leader>/",
+      icon = { icon = "󰭎 ", color = "azure" },
+    },
+    {
+      "<leader>:",
+      icon = { icon = "󰋚 ", color = "orange" },
+    },
+    {
+      "<leader>e",
+      icon = { icon = "󰝰 ", color = "purple" },
+    },
+    {
+      "<leader><TAB>",
+      group = "Tabs",
+      icon = { icon = "󰓩 ", color = "purple" },
+    },
+    {
+      "<leader>f",
+      group = "Files",
+      icon = { icon = "󰉓 ", color = "cyan" },
+    },
+    {
+      "<leader>s",
+      group = "Search",
+      icon = { icon = "󰍉 ", color = "green" },
+    },
+    {
+      "<leader>g",
+      group = "Git",
+      icon = { icon = "󰊢 ", color = "orange" },
+    },
+    {
+      "<leader>gh",
+      group = "Hunks",
+      icon = { icon = "󰊢 ", color = "orange" },
+    },
+    {
+      "<leader>g",
+      group = "Gitsigns",
+      icon = { icon = "󱖫 ", color = "green" },
+    },
+    {
+      "<leader>R",
+      group = "Replace",
+      icon = { icon = "󰛔 ", color = "yellow" },
+    },
+    {
+      "<leader>c",
+      group = "Code",
+      icon = { icon = "󰅩 ", color = "azure" },
+    },
+    {
+      "<leader>t",
+      group = "Terminal",
+      icon = { icon = "󰞷 ", color = "grey" },
+    },
+    {
+      "<leader>d",
+      group = "Debug",
+      icon = { icon = "󰃤 ", color = "red" },
+    },
+    {
+      "<leader>u",
+      group = "UI",
+      icon = { icon = "󰙵 ", color = "cyan" },
+    },
     {
       "<leader>b",
       group = "Buffer",
+      icon = { icon = "󰈙 ", color = "blue" },
       expand = function()
         return which_key_extras.expand.buf()
       end,
     },
     {
       "<leader>w",
-      group = "Windows",
+      group = "Window",
+      icon = { icon = "󰖲 ", color = "green" },
       --proxy = "<c-w>",
       expand = function()
         return which_key_extras.expand.win()
@@ -65,5 +138,5 @@ which_key.setup({
 local map = vim.keymap.set
 
 map("n", "<leader>?", function()
-  require("which-key").show({ global = false })
+  which_key.show({ global = false })
 end, { desc = "Buffer Local Keymaps (which-key)" })

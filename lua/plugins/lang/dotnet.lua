@@ -4,6 +4,8 @@ vim.pack.add({
 
 local roslyn = require("roslyn")
 
+roslyn.setup()
+
 vim.lsp.config("roslyn", {
   settings = {
     ["csharp|code_lens"] = {
@@ -36,4 +38,13 @@ vim.lsp.config("roslyn", {
       dotnet_organize_imports_on_format = true,
     },
   },
+})
+
+-- Roslyn doesnt load in time to enable certain features correctly
+vim.api.nvim_create_autocmd("User", {
+  pattern = "RoslynInitialized",
+  callback = function()
+    vim.lsp.inlay_hint.enable(true)
+    vim.lsp.codelens.enable(true)
+  end,
 })

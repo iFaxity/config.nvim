@@ -26,48 +26,67 @@ local map = vim.keymap.set
 
 map("n", "]H", function()
   gitsigns.nav_hunk("last")
-end, { desc = "Last Hunk" })
+end, { desc = "Last hunk" })
 
 map("n", "[H", function()
   gitsigns.nav_hunk("first")
-end, { desc = "First Hunk" })
-
-map({ "n", "x" }, "<leader>ghs", function()
-  gitsigns.stage_hunk()
-end, { desc = "Stage/Unstage Hunk" })
-
-map({ "n", "x" }, "<leader>ghr", function()
-  gitsigns.reset_hunk()
-end, { desc = "Reset Hunk" })
-
-map("n", "<leader>ghS", function()
-  gitsigns.stage_buffer()
-end, { desc = "Stage Buffer" })
-
-map("n", "<leader>ghR", function()
-  gitsigns.reset_buffer()
-end, { desc = "Reset Buffer" })
-
-map("n", "<leader>ghp", function()
-  gitsigns.preview_hunk_inline()
-end, { desc = "Preview Hunk Inline" })
-
-map("n", "<leader>ghb", function()
-  gitsigns.blame_line({ full = true })
-end, { desc = "Blame Line" })
-
-map("n", "<leader>ghB", function()
-  gitsigns.blame()
-end, { desc = "Blame Buffer" })
-
-map("n", "<leader>ghd", function()
-  gitsigns.diffthis()
-end, { desc = "Diff This" })
-
-map("n", "<leader>ghD", function()
-  gitsigns.diffthis("~")
-end, { desc = "Diff This ~" })
+end, { desc = "First hunk" })
 
 map({ "o", "x" }, "ih", function()
   gitsigns.select_hunk()
-end, { desc = "GitSigns Select Hunk" })
+end, { desc = "GitSigns select hunk" })
+
+map("n", "<leader>gb", function()
+  gitsigns.blame_line({ full = true })
+end, { desc = "Blame line" })
+
+map("n", "<leader>gB", function()
+  gitsigns.blame()
+end, { desc = "Blame buffer" })
+
+--
+-- Hunk
+--
+
+map({ "n", "x" }, "<leader>ghs", function()
+  gitsigns.stage_hunk()
+end, { desc = "Stage/Unstage hunk" })
+
+map({ "n", "x" }, "<leader>ghr", function()
+  gitsigns.reset_hunk()
+end, { desc = "Reset hunk" })
+
+map("n", "<leader>ghS", function()
+  gitsigns.stage_buffer()
+end, { desc = "Stage buffer" })
+
+map("n", "<leader>ghR", function()
+  gitsigns.reset_buffer()
+end, { desc = "Reset buffer" })
+
+map("n", "<leader>ghp", function()
+  gitsigns.preview_hunk_inline()
+end, { desc = "Preview hunk inline" })
+
+map("n", "<leader>ghd", function()
+  gitsigns.diffthis()
+end, { desc = "Diff this" })
+
+map("n", "<leader>ghD", function()
+  gitsigns.diffthis("~")
+end, { desc = "Diff this ~" })
+
+--
+-- Toggles
+--
+Snacks.toggle({
+  name = "Git signs",
+  get = function()
+    local config = require("gitsigns.config").config
+
+    return config.signcolumn
+  end,
+  set = function(state)
+    gitsigns.toggle_signs(state)
+  end,
+}):map("<leader>uG")

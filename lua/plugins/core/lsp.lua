@@ -2,6 +2,25 @@ vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" },
 })
 
+vim.diagnostic.config({
+  underline = true,
+  update_in_insert = false,
+  virtual_text = {
+    spacing = 4,
+    source = "if_many",
+    prefix = "●",
+  },
+  severity_sort = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+    },
+  },
+})
+
 --
 -- Keymaps (change to only enable on attach)
 --
@@ -20,8 +39,26 @@ local function source_action()
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
     local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+
+    -- Don't want to enable these globally for now
+    -- local buf = ev.buf
+    -- -- Enable lsp inlay hints if the server supports it
+    -- if client:supports_method("textDocument/inlayHint") then
+    --   vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+    -- end
+    --
+    -- -- Enable lsp codelens if the server supports it
+    -- if client:supports_method("textDocument/codeLens") then
+    --   vim.lsp.codelens.enable(true, { bufnr = buf })
+    -- end
+    --
+    -- -- Enable lsp inline completion if the server supports it
+    -- if client:supports_method("textDocument/inlineCompletion") then
+    --   vim.lsp.inline_completion.enable(true, { bufnr = buf })
+    -- end
 
     -- LSP info
     map("n", "<leader>cl", function()

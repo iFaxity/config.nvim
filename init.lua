@@ -19,11 +19,12 @@ require("plugins.core.icons")
 -- UI plugins
 require("plugins.ui.colorscheme")
 require("plugins.ui.bufferline")
+require("plugins.ui.noice")
 require("plugins.ui.lualine")
 require("plugins.ui.snacks")
 require("plugins.ui.mini")
-require("plugins.ui.noice")
 require("plugins.ui.which-key")
+require("plugins.ui.harpoon")
 
 -- Editor plugins
 require("plugins.editor.colorizer")
