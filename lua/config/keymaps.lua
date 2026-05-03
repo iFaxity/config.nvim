@@ -79,7 +79,7 @@ map("n", "<leader>wq", "<cmd>exit<cr>", {
 map("n", "<leader>q", "<cmd>quit<cr>", {
   desc = "Quit current window",
 })
-map("n", "<leader>qa", "<cmd>exitall<cr>", {
+map("n", "<leader>qa", "<cmd>xall<cr>", {
   desc = "Save and quit all",
 })
 

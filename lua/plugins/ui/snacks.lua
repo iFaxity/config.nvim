@@ -28,6 +28,20 @@ snacks.setup({
   },
   zen = {
     enabled = true,
+    toggles = {
+      dim = true,
+      git_signs = false,
+      mini_diff_signs = false,
+      conceallevel = false,
+    },
+    show = {
+      statusline = false, -- can only be shown when using the global statusline
+      tabline = false,
+    },
+    win = {
+      width = 0,
+      backdrop = { transparent = true, blend = 25 },
+    },
   },
   terminal = {
     enabled = true,
@@ -221,19 +235,6 @@ map("n", "<leader>tf", function()
   Snacks.terminal()
 end, { desc = "Terminal" })
 
-map("n", "<leader>tF", function()
-  Snacks.terminal(nil, {
-    win = {
-      style = "float",
-      border = "rounded",
-      width = 0.8,
-      height = 0.8,
-      title = "󰞷 Terminal",
-      title_pos = "center",
-    },
-  })
-end, { desc = "Terminal (floating)" })
-
 map({ "n", "t" }, "<leader>tb", "<cmd>terminal<cr>", { desc = "Terminal (buffer)" })
 
 --
@@ -269,6 +270,30 @@ end, { desc = "Recent" })
 map("n", "<leader>fp", function()
   Snacks.picker.projects()
 end, { desc = "Projects" })
+
+map("n", "<leader>fd", function()
+  local file_name = vim.api.nvim_buf_get_name(0)
+
+  if file_name == "" then
+    Snacks.notify.error("No file to delete")
+    return
+  end
+
+  local confirm = vim.fn.confirm("Delete " .. vim.fn.fnamemodify(file_name, ":t") .. "?", "&Yes\n&No", 2, "Question")
+
+  if confirm ~= 1 then
+    return
+  end
+
+  local success, err = os.remove(file_name)
+  if success then
+    -- We still use Snacks for the clean buffer close and notification
+    Snacks.bufdelete.delete()
+    Snacks.notify.info("File deleted")
+  else
+    Snacks.notify.error("Error: " .. err)
+  end
+end, { desc = "Delete current file" })
 
 --
 -- Git
