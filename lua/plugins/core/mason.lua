@@ -36,6 +36,8 @@ mason_lspconfig.setup({
     "tailwindcss",
     -- JS / TS LSP
     "vtsls",
+    -- JS / TS Linting & Formatting
+    "eslint",
     -- Lua LSP
     "lua_ls",
     -- GraphQL LSP

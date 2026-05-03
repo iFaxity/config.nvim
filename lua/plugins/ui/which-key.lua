@@ -82,11 +82,6 @@ which_key.setup({
       icon = { icon = "󰊢 ", color = "orange" },
     },
     {
-      "<leader>g",
-      group = "Gitsigns",
-      icon = { icon = "󱖫 ", color = "green" },
-    },
-    {
       "<leader>R",
       group = "Replace",
       icon = { icon = "󰛔 ", color = "yellow" },

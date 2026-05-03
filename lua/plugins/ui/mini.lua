@@ -1,9 +1,9 @@
 vim.pack.add({
-  { src = "https://github.com/nvim-mini/mini.nvim" },
+  { src = "https://github.com/nvim-mini/mini.pairs" },
+  { src = "https://github.com/nvim-mini/mini.surround" },
 })
 
 local pairs = require("mini.pairs")
-local icons = require("mini.icons")
 local surround = require("mini.surround")
 
 -- Auto pairs
@@ -16,9 +16,6 @@ pairs.setup({
     terminal = false,
   },
 })
-
--- Icons
-icons.setup()
 
 -- Surround
 surround.setup({

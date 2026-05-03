@@ -66,6 +66,7 @@ snacks.setup({
       explorer = {
         hidden = true,
         git_status = true,
+        auto_close = true,
         layout = {
           preset = "sidebar",
           hidden = { "input" },

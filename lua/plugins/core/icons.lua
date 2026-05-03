@@ -1,7 +1,9 @@
 vim.pack.add({
-  { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+  { src = "https://github.com/nvim-mini/mini.icons" },
 })
 
-local devicons = require("nvim-web-devicons")
+local icons = require("mini.icons")
 
-devicons.setup()
+-- Icons
+icons.setup()
+icons.mock_nvim_web_devicons()
