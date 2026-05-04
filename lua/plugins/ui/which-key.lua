@@ -53,6 +53,10 @@ which_key.setup({
       icon = { icon = "󰋚 ", color = "orange" },
     },
     {
+      "<leader>.",
+      icon = { icon = " ", color = "green" },
+    },
+    {
       "<leader>e",
       icon = { icon = "󰝰 ", color = "purple" },
     },

@@ -25,6 +25,7 @@ require("plugins.ui.snacks")
 require("plugins.ui.mini")
 require("plugins.ui.which-key")
 require("plugins.ui.harpoon")
+require("plugins.ui.grug")
 
 -- Editor plugins
 require("plugins.editor.colorizer")
