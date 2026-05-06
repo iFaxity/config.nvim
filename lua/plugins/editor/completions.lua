@@ -3,9 +3,9 @@ vim.pack.add({
   { src = "https://github.com/rafamadriz/friendly-snippets" },
 })
 
-local blink_cmp = require("blink.cmp")
+local blink = require("blink.cmp")
 
-blink_cmp.setup({
+blink.setup({
   keymap = {
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
     -- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -22,7 +22,7 @@ blink_cmp.setup({
   -- (Default) Only show the documentation popup when manually triggered
   completion = {
     documentation = {
-      auto_show = false,
+      auto_show = true,
     },
   },
   -- Default list of enabled providers defined so that you can extend it

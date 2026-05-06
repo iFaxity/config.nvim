@@ -1,15 +1,23 @@
 vim.pack.add({
   { src = "https://github.com/seblyng/roslyn.nvim" },
+  { src = "https://github.com/khoido2003/roslyn-filewatch.nvim" },
 })
 
 local roslyn = require("roslyn")
+local roslyn_filewatch = require("roslyn_filewatch")
 
-roslyn.setup()
+roslyn.setup({
+  -- Turn off normal file watcher and use the custom plugin
+  filewatching = "off",
+  -- Turn off notifications
+  silent = true,
+})
+roslyn_filewatch.setup({})
 
 vim.lsp.config("roslyn", {
   settings = {
     ["csharp|code_lens"] = {
-      dotnet_enable_references_code_lens = true,
+      dotnet_enable_references_code_lens = false,
       dotnet_enable_tests_code_lens = false,
     },
     ["csharp|completion"] = {
@@ -30,9 +38,9 @@ vim.lsp.config("roslyn", {
       -- Type Hints
       csharp_enable_inlay_hints_for_types = true,
       csharp_enable_inlay_hints_for_implicit_variable_types = true,
-      csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+      csharp_enable_inlay_hints_for_lambda_parameter_types = false,
       csharp_enable_inlay_hints_for_implicit_object_creation = false,
-      csharp_enable_inlay_hints_for_collection_expressions = true,
+      csharp_enable_inlay_hints_for_collection_expressions = false,
     },
     ["csharp|symbol_search"] = {
       dotnet_search_reference_assemblies = true,

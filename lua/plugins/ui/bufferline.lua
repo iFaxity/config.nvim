@@ -8,12 +8,6 @@ local frappe = palettes.get_palette("frappe")
 local bufferline = require("bufferline")
 
 bufferline.setup({
-  --  -- stylua: ignore
-  --  close_command = function(n) Snacks.bufdelete(n) end,
-  --  -- stylua: ignore
-  --  right_mouse_command = function(n) Snacks.bufdelete(n) end,
-  --  diagnostics = "nvim_lsp",
-  --  always_show_bufferline = false,
   highlights = catppuccin.get_theme({
     custom = {
       all = {
@@ -24,7 +18,12 @@ bufferline.setup({
     },
   }),
   options = {
-
+    close_command = function(buf)
+      Snacks.bufdelete(buf)
+    end,
+    right_mouse_command = function(buf)
+      Snacks.bufdelete(buf)
+    end,
     diagnostics = "nvim_lsp",
     diagnostics_indicator = function(_, _, diag)
       if diag.error then

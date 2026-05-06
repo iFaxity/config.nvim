@@ -12,7 +12,7 @@ conform.setup({
     typescript = { "oxfmt", "prettier", stop_after_first = true },
     javascriptreact = { "oxfmt", "prettier", stop_after_first = true },
     typescriptreact = { "oxfmt", "prettier", stop_after_first = true },
-    cs = { "csharpier", stop_after_first = true },
+    --cs = { "csharpier", stop_after_first = true },
   },
   format_on_save = {
     -- These options will be passed to conform.format()

@@ -126,6 +126,10 @@
       "rev": "3f3eea97b80839f629c951ca660ffd125bfa5b34",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
+    "roslyn-filewatch.nvim": {
+      "rev": "4db2f1202cbf691d3c43797459eccd85cbe16342",
+      "src": "https://github.com/khoido2003/roslyn-filewatch.nvim"
+    },
     "roslyn.nvim": {
       "rev": "b62d1a588765f0aa1b46ed260252c9e456408835",
       "src": "https://github.com/seblyng/roslyn.nvim"

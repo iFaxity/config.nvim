@@ -18,6 +18,7 @@ catppuccin.setup({
     blink_cmp = {
       style = "bordered",
     },
+    harpoon = true,
     dap = true,
     dap_ui = true,
     gitsigns = true,

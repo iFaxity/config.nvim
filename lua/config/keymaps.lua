@@ -73,13 +73,10 @@ map("n", "<leader>fn", "<cmd>enew<cr>", {
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>write<cr><esc>", {
   desc = "Save file",
 })
-map("n", "<leader>wq", "<cmd>exit<cr>", {
-  desc = "Save and quit current window",
+map("n", "<leader>qq", "<cmd>quitall!<cr>", {
+  desc = "Quit all",
 })
-map("n", "<leader>q", "<cmd>quit<cr>", {
-  desc = "Quit current window",
-})
-map("n", "<leader>qa", "<cmd>xall<cr>", {
+map("n", "<leader>qa", "<cmd>xall!<cr>", {
   desc = "Save and quit all",
 })
 
@@ -92,6 +89,9 @@ map("n", "<leader>|", "<cmd>vsplit<cr>", {
 })
 map("n", "<leader>wd", "<cmd>close<cr>", {
   desc = "Delete window",
+})
+map("n", "<leader>wq", "<cmd>exit<cr>", {
+  desc = "Save and quit current window",
 })
 
 -- Move to window using <ctrl> hjkl

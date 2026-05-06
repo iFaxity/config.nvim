@@ -22,6 +22,7 @@ git_conflict.setup({})
 --
 -- Keymaps
 --
+
 local map = vim.keymap.set
 
 map("n", "]H", function()

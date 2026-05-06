@@ -123,7 +123,7 @@ snacks.setup({
           action = ":ene | startinsert",
         },
         {
-          icon = " ",
+          icon = "󰭎 ",
           key = "g",
           desc = "Find text",
           action = ":lua Snacks.dashboard.pick('live_grep')",
@@ -147,7 +147,7 @@ snacks.setup({
           action = ":lua Snacks.dashboard.pick('projects')",
         },
         {
-          icon = " ",
+          icon = "󰖲 ",
           key = "s",
           desc = "Sessions",
           action = ":AutoSession search",
@@ -353,7 +353,7 @@ map("n", "<leader>sm", function()
   Snacks.picker.man()
 end, { desc = "Man pages" })
 
-map("n", "<leader>sr", function()
+map("n", "<leader>sR", function()
   Snacks.picker.resume()
 end, { desc = "Resume" })
 

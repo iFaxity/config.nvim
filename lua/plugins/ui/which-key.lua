@@ -45,6 +45,10 @@ which_key.setup({
       icon = { icon = "󰘖 ", color = "yellow" },
     },
     {
+      "<leader>?",
+      icon = { icon = "󰌌 ", color = "azure" },
+    },
+    {
       "<leader>/",
       icon = { icon = "󰭎 ", color = "azure" },
     },
@@ -81,14 +85,14 @@ which_key.setup({
       icon = { icon = "󰊢 ", color = "orange" },
     },
     {
+      "<leader>q",
+      group = "Quit",
+      icon = { icon = "󰍃 ", color = "red" },
+    },
+    {
       "<leader>gh",
       group = "Hunks",
       icon = { icon = "󰊢 ", color = "orange" },
-    },
-    {
-      "<leader>R",
-      group = "Replace",
-      icon = { icon = "󰛔 ", color = "yellow" },
     },
     {
       "<leader>c",
