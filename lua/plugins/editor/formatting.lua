@@ -31,8 +31,16 @@ conform.setup({
 --
 -- Keymaps
 --
-local map = vim.keymap.set
 
-map({ "n", "x" }, "<leader>cf", function()
-  conform.format({ force = true })
-end, { desc = "Format" })
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("format_keymaps", { clear = true }),
+  pattern = "*",
+  callback = function(ev)
+    if vim.bo[ev.buf].buftype ~= "" then
+      return
+    end
+    vim.keymap.set({ "n", "x" }, "<leader>cf", function()
+      conform.format({ force = true })
+    end, { buffer = ev.buf, desc = "Format" })
+  end,
+})

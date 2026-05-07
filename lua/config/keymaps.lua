@@ -159,12 +159,15 @@ map("n", "<leader><Tab>o", "<cmd>tabonly<cr>", {
   desc = "Close other tabs",
 })
 
--- Buffer navigation
-map("n", "<S-Tab>", "<cmd>bprevious<cr>", {
-  desc = "Prev Buffer",
-})
+-- Buffer management
 map("n", "<Tab>", "<cmd>bnext<cr>", {
-  desc = "Next Buffer",
+  desc = "Next buffer",
+})
+map("n", "<S-Tab>", "<cmd>bprevious<cr>", {
+  desc = "Prev buffer",
+})
+map("n", "<leader>bD", "<cmd>bdelete<cr>", {
+  desc = "Delete Buffer and Window",
 })
 
 -- Better up/down

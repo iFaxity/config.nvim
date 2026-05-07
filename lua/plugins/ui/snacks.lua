@@ -45,6 +45,9 @@ snacks.setup({
   },
   terminal = {
     enabled = true,
+    win = {
+      height = 0.25,
+    },
   },
   notifier = {
     enabled = true,
@@ -247,6 +250,18 @@ end, { desc = "Buffers" })
 map("n", "<leader>bF", function()
   Snacks.picker.buffers({ hidden = true, nofile = true })
 end, { desc = "Buffers (all)" })
+
+map("n", "<leader>bd", function()
+  Snacks.bufdelete()
+end, { desc = "Delete buffer" })
+
+map("n", "<leader>bo", function()
+  Snacks.bufdelete.other()
+end, { desc = "Delete other buffers" })
+
+map("n", "<leader>bA", function()
+  Snacks.bufdelete.all()
+end, { desc = "Delete all buffers" })
 
 --
 -- Files

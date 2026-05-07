@@ -38,13 +38,3 @@ bufferline.setup({
     end,
   },
 })
-
---
--- Keymaps
---
-
-local map = vim.keymap.set
-
-map("n", "<leader>bd", function()
-  Snacks.bufdelete()
-end, { desc = "Delete buffer" })
