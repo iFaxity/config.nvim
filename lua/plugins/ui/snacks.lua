@@ -26,6 +26,13 @@ snacks.setup({
   words = {
     enabled = true,
   },
+  lazygit = {
+    enabled = true,
+    win = {
+      width = 0.9,
+      height = 0.9,
+    },
+  },
   zen = {
     enabled = true,
     toggles = {
