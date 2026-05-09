@@ -6,6 +6,10 @@ local auto_session = require("auto-session")
 
 auto_session.setup({
   auto_restore = false,
+  lsp_stop_on_restore = true,
+  git_use_branch_name = false,
+  --allowed_dirs = { "~/projects/**", "~/.config/*" },
+  suppressed_dirs = { "~/", "~/projects", "~/downloads", "/" },
   bypass_save_filetypes = { "dashboard", "snacks_dashboard" },
   session_lens = {
     picker = "snacks",
