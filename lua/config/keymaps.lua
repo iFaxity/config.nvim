@@ -11,9 +11,6 @@ map("n", "<Esc>", "<cmd>nohlsearch<cr>", {
   desc = "Clear search highlights",
   silent = true,
 })
-map("t", "<Esc>", "<C-\\><C-n>", {
-  desc = "Exit terminal mode",
-})
 
 -- Show float diagnostics for line
 map("n", "<leader>cd", function()
@@ -29,15 +26,7 @@ map("n", "<C-u>", "<C-u>zz", {
   desc = "Keep cursor in middle in half page jumps",
   nowait = true,
 })
--- map("n", "<S-Down>", "<S-Down>zz<cr>", {
---   desc = "Keep cursor in middle in page jumps",
---   nowait = true,
--- })
--- map("n", "<S-Up>", "<S-Up>zz<cr>", {
---   desc = "Keep cursor in middle in page jumps",
---   nowait = true,
--- })
---
+
 -- Not sure about these....
 map("n", "n", "nzzzv", {
   desc = "",
