@@ -115,6 +115,11 @@ which_key.setup({
       icon = { icon = "󰙵 ", color = "cyan" },
     },
     {
+      "<leader>o",
+      group = "OpenCode",
+      icon = { icon = "󰚩 ", color = "cyan" },
+    },
+    {
       "<leader>b",
       group = "Buffer",
       icon = { icon = "󰈙 ", color = "blue" },

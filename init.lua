@@ -37,6 +37,7 @@ require("plugins.editor.completions")
 require("plugins.editor.git")
 require("plugins.editor.todo")
 require("plugins.editor.comments")
+require("plugins.editor.opencode")
 
 -- Languages
 require("plugins.lang.dotnet")
