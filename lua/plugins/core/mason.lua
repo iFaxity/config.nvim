@@ -49,13 +49,11 @@ mason_lspconfig.setup({
   },
 })
 
+-- Only install necessayr tools, tools should be project specific
 mason_tool_installer.setup({
   ensure_installed = {
-    "prettier",
+    "prettierd",
     "stylua",
-    "oxfmt",
-    "oxlint",
-    "csharpier",
   },
 })
 

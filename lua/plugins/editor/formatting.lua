@@ -6,26 +6,35 @@ local conform = require("conform")
 
 conform.setup({
   formatters_by_ft = {
-    lua = { "stylua", stop_after_first = true },
+    lua = { "stylua" },
     -- Conform will run the first available formatter
-    javascript = { "oxfmt", "prettier", stop_after_first = true },
-    typescript = { "oxfmt", "prettier", stop_after_first = true },
-    javascriptreact = { "oxfmt", "prettier", stop_after_first = true },
-    typescriptreact = { "oxfmt", "prettier", stop_after_first = true },
-    --cs = { "csharpier", stop_after_first = true },
+    javascript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+    typescript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+    javascriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+    typescriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+    cs = { "csharpier" },
   },
-  format_on_save = {
-    -- These options will be passed to conform.format()
-    timeout_ms = 500,
-    lsp_format = "fallback",
-  },
-  formatters = {
-    csharpier = {
-      -- Adding this flag ensures it works even if your
-      -- .csproj uses a different CSharpier NuGet version
-      args = { "--no-msbuild-check", "--write-stdout" },
-    },
-  },
+
+  format_on_save = function(bufnr)
+    if vim.bo[bufnr].filetype == "cs" then
+      return
+    end
+
+    return {
+      timeout_ms = 500,
+      lsp_format = "fallback",
+    }
+  end,
+
+  format_after_save = function(bufnr)
+    if vim.bo[bufnr].filetype ~= "cs" then
+      return
+    end
+
+    return {
+      lsp_format = "fallback",
+    }
+  end,
 })
 
 --
@@ -39,8 +48,12 @@ vim.api.nvim_create_autocmd("FileType", {
     if vim.bo[ev.buf].buftype ~= "" then
       return
     end
+
     vim.keymap.set({ "n", "x" }, "<leader>cf", function()
-      conform.format({ force = true })
+      conform.format({
+        force = true,
+        async = true,
+      })
     end, { buffer = ev.buf, desc = "Format" })
   end,
 })
