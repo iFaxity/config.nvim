@@ -2,9 +2,9 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
 })
 
-local snacks = require("snacks")
+local Snacks = require("snacks")
 
-snacks.setup({
+Snacks.setup({
   bigfile = {
     enabled = true,
   },
