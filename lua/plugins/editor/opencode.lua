@@ -8,13 +8,59 @@ local opencode = require("opencode")
 vim.o.autoread = true
 
 --
+-- Snacks integration
+--
+
+local opencode_cmd = "opencode --port"
+
+---@type snacks.terminal.Opts
+local snacks_terminal_opts = {
+  interactive = true,
+  win = {
+    position = "float",
+    enter = false,
+    height = 0.9,
+    width = 0.9,
+    on_win = function(win)
+      -- Set up keymaps and cleanup for an arbitrary terminal
+      local term = require("opencode.terminal")
+
+      term.setup(win.win)
+      win:focus()
+      vim.cmd("startinsert")
+    end,
+  },
+}
+
+---@type opencode.Opts
+vim.g.opencode_opts = {
+  server = {
+    start = function()
+      local terminal = require("snacks.terminal")
+
+      terminal.open(opencode_cmd, snacks_terminal_opts)
+    end,
+    stop = function()
+      local terminal = require("snacks.terminal")
+
+      terminal.get(opencode_cmd, snacks_terminal_opts):close()
+    end,
+    toggle = function()
+      local terminal = require("snacks.terminal")
+
+      terminal.toggle(opencode_cmd, snacks_terminal_opts)
+    end,
+  },
+}
+
+--
 -- Keymaps
 --
 local map = vim.keymap.set
 
 map("n", "<leader>oo", function()
   opencode.toggle()
-end, { desc = "Open" })
+end, { desc = "Toggle" })
 
 map({ "n", "x" }, "<leader>oa", function()
   opencode.ask("@this: ", { submit = true })
