@@ -42,3 +42,4 @@ require("plugins.editor.opencode")
 -- Languages
 require("plugins.lang.dotnet")
 require("plugins.lang.markdown")
+require("plugins.lang.sql")

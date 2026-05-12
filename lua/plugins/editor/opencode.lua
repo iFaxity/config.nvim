@@ -19,15 +19,16 @@ local snacks_terminal_opts = {
   win = {
     position = "float",
     enter = false,
-    height = 0.9,
-    width = 0.9,
+    height = 0.95,
+    width = 0.95,
+    --backdrop = { transparent = true, blend = 0 },
     on_win = function(win)
       -- Set up keymaps and cleanup for an arbitrary terminal
       local term = require("opencode.terminal")
 
       term.setup(win.win)
       win:focus()
-      vim.cmd("startinsert")
+      vim.cmd.startinsert()
     end,
   },
 }
@@ -63,7 +64,7 @@ map("n", "<leader>oo", function()
 end, { desc = "Toggle" })
 
 map({ "n", "x" }, "<leader>oa", function()
-  opencode.ask("@this: ", { submit = true })
+  opencode.ask("@this: ", { submit = true  })
 end, { desc = "Ask" })
 
 map({ "n", "x" }, "<leader>ob", function()

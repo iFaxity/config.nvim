@@ -4,37 +4,25 @@ vim.pack.add({
 
 local conform = require("conform")
 
+-- By efault
 conform.setup({
+  default_format_opts = {
+    async = true,
+    lsp_format = "fallback",
+    timeout_ms = 500,
+    stop_after_first = true,
+  },
   formatters_by_ft = {
     lua = { "stylua" },
     -- Conform will run the first available formatter
-    javascript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
-    typescript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
-    javascriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
-    typescriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+    html = { "oxfmt", "prettier" },
+    css = { "oxfmt", "prettier" },
+    javascript = { "oxfmt", "prettier" },
+    typescript = { "oxfmt", "prettier" },
+    javascriptreact = { "oxfmt", "prettier" },
+    typescriptreact = { "oxfmt", "prettier" },
     cs = { "csharpier" },
   },
-
-  format_on_save = function(bufnr)
-    if vim.bo[bufnr].filetype == "cs" then
-      return
-    end
-
-    return {
-      timeout_ms = 500,
-      lsp_format = "fallback",
-    }
-  end,
-
-  format_after_save = function(bufnr)
-    if vim.bo[bufnr].filetype ~= "cs" then
-      return
-    end
-
-    return {
-      lsp_format = "fallback",
-    }
-  end,
 })
 
 --

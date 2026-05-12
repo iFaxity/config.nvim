@@ -13,6 +13,7 @@ tree_sitter_manager.setup({
     -- Shell scripting
     "bash",
     "fish",
+    "kitty",
 
     -- Scripting
     "lua",
@@ -25,10 +26,8 @@ tree_sitter_manager.setup({
     "html",
     "css",
     "tsx",
-    "vue",
-    "svelte",
-    "markdown",
-    "markdown_inline",
+    "angular",
+    "graphql",
 
     -- Data
     "sql",
@@ -38,6 +37,20 @@ tree_sitter_manager.setup({
     "json5",
     "yaml",
     "toml",
+    "kdl",
+    "hyprlang",
+
+    -- Text
+    "editorconfig",
+    "markdown",
+    "markdown_inline",
+
+    -- Git
+    "git_config",
+    "git_rebase",
+    "gitattributes",
+    "gitcommit",
+    "gitignore",
 
     -- Build systems
     "dockerfile",

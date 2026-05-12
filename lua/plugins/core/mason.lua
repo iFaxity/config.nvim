@@ -38,6 +38,8 @@ mason_lspconfig.setup({
     "vtsls",
     -- JS / TS Linting & Formatting
     "eslint",
+    -- Angular
+    "angularls",
     -- Lua LSP
     "lua_ls",
     -- GraphQL LSP
@@ -52,7 +54,6 @@ mason_lspconfig.setup({
 -- Only install necessayr tools, tools should be project specific
 mason_tool_installer.setup({
   ensure_installed = {
-    "prettierd",
     "stylua",
   },
 })
