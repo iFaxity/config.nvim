@@ -1,18 +1,15 @@
 vim.pack.add({
   { src = "https://github.com/seblyng/roslyn.nvim" },
-  { src = "https://github.com/khoido2003/roslyn-filewatch.nvim" },
 })
 
 local roslyn = require("roslyn")
-local roslyn_filewatch = require("roslyn_filewatch")
 
 roslyn.setup({
-  -- Turn off normal file watcher and use the custom plugin
-  filewatching = "off",
+  -- Use the roslyn default file watcher
+  filewatching = "roslyn",
   -- Turn off notifications
   silent = true,
 })
-roslyn_filewatch.setup({})
 
 vim.lsp.config("roslyn", {
   settings = {
